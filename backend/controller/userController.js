@@ -48,6 +48,7 @@ export async function registerUser(req, res) {
     const token = createToken(user._id);
     return res.status(201).json({
       success: true,
+      token,
       user: {
         id: user._id,
         name: user.name,

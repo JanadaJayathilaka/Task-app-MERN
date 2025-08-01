@@ -5,7 +5,9 @@ import {
   registerUser,
   updatePassword,
   updateProfile,
-} from "../controller/userController";
+} from "../controller/userController.js";
+
+import authMiddleware from "../middleware/auth.js";
 
 const userRouter = express.Router();
 
@@ -14,6 +16,8 @@ userRouter.post("/register", registerUser);
 userRouter.post("/login", loginUser);
 
 //private routes protect also
-userRouter.get("/me", getCurrentUser);
-userRouter.put("/profile", updateProfile);
-userRouter.put("/password", updatePassword);
+userRouter.get("/me", authMiddleware, getCurrentUser);
+userRouter.put("/profile", authMiddleware, updateProfile);
+userRouter.put("/password", authMiddleware, updatePassword);
+
+export default userRouter;
