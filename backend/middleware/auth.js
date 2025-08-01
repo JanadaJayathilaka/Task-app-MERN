@@ -16,12 +16,22 @@ export default async function authMiddleware(req, res, next) {
 
   //Verify and attach user object
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = await User.findById(decoded.id).select("-password");
+    const payload = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(payload.id).select("-password");
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    req.user = user;
     next();
   } catch (error) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Unauthorized. Invalid token" });
+    console.log("JWT verification failed:", error);
+    return res.status(401).json({
+      success: false,
+      message: "Token is invalid or expired",
+    });
   }
 }
