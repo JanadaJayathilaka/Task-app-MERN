@@ -46,6 +46,7 @@ export async function registerUser(req, res) {
       password: hashed,
     });
     const token = createToken(user._id);
+
     return res.status(201).json({
       success: true,
       token,
