@@ -99,3 +99,28 @@ export const updateTask = async (req, res) => {
     });
   }
 };
+
+//Delete A Task
+export const deleteTask = async (req, res) => {
+  try {
+    const deleted = await Task.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user.id,
+    });
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found or not yours",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Task deleted successfully",
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
