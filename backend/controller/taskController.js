@@ -12,16 +12,16 @@ export const createTask = async (req, res) => {
       completed: completed === "Yes" || completed === true,
       owner: req.user._id,
     });
-    await task.save();
+    const saved = await task.save();
     return res.status(201).json({
       success: true,
       message: "Task created successfully",
-      task,
+      task: saved,
     });
   } catch (err) {
-    return res.status(500).json({
+    return res.status(400).json({
       success: false,
-      message: "Internal server error",
+      message: err.message,
     });
   }
 };
