@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronDown, Settings, Zap } from "lucide-react";
+import { ChevronDown, LogOut, Settings, Zap } from "lucide-react";
 import { useRef, useState } from "react";
 const NavBar = () => {
   const navigate = useNavigate();
@@ -10,6 +10,12 @@ const NavBar = () => {
   const handleMenuToggle = () => {
     setMenuOpen((prev) => !prev);
   };
+
+  const handleLogout = () => {
+    setMenuOpen(false);
+    onLogout();
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white backdrop-blur-md border-b border-gray-200 font-sans">
       <div className="flex item-center justify-between px-4 py-3 md:px-6 max-w-7xl mx-auto">
@@ -77,6 +83,36 @@ const NavBar = () => {
                 }`}
               />
             </button>
+            {menuOpen && (
+              <ul
+                className="absolute top-14 right-0 w-56 bg-white rounded-2xl 
+            shadow-xl border border-purple-100 z-50 overflow-hidden animate-fadeIn"
+              >
+                <li className="p-2">
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      navigate("/profile");
+                    }}
+                    className="w-full px-4 py-2.5 text-left hover:bg-purple-50 text-sm
+                    text-gray-700 transition-colors flex items-center gap-2 group"
+                    role="menuitem"
+                  >
+                    <Settings className="w-4 h-4 text-gray-700" />
+                    Profile Settings
+                  </button>
+                </li>
+                <li className="p-2">
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-red-50 text-red-600 "
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </div>
