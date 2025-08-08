@@ -1,9 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Zap } from "lucide-react";
-
+import { ChevronDown, Settings, Zap } from "lucide-react";
+import { useRef, useState } from "react";
 const NavBar = () => {
   const navigate = useNavigate();
+  const menuref = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setMenuOpen((prev) => !prev);
+  };
   return (
     <header className="sticky top-0 z-50 bg-white backdrop-blur-md border-b border-gray-200 font-sans">
       <div className="flex item-center justify-between px-4 py-3 md:px-6 max-w-7xl mx-auto">
@@ -16,7 +22,61 @@ const NavBar = () => {
             className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-500
            via-purple-500 to-indigo-500 shadow-lg group-hover:shadow-purple-300/50 group-hover:scale-105 transition-all duration-300"
           >
-            <Zap />
+            <Zap className="relative h-6 w-6 text-black" />
+            <div className="absolute -bottom-1 middle-1 w-3 h-3 bg-black rounded-full shadow-md animate-ping"></div>
+          </div>
+          {/* brand name */}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 via-purple-500 to-indigo-500 text-2xl font-extrabold tracking-wide">
+            TaskApp
+          </span>
+        </div>
+        {/* right side */}
+        <div className="flex items-center gap-4">
+          <button
+            className="p-2 text-gray-600 hover:text-purple-500 transition-colors duration-300 hover:bg-purple-50 rounded-full"
+            onClick={() => navigate("/profile")}
+          >
+            <Settings className="w-5 h-5" />
+          </button>
+          {/* user dropdown menu */}
+          <div ref={menuref} className="relative">
+            <button
+              onClick={handleMenuToggle}
+              className="flex items-center gap-2 px-3 py-2 rounded-full cursor-pointer hover:bg-purple-50 transition-colors 
+              duration-300 border-transparent hover:border-purple-200"
+            >
+              <div className="relative">
+                {User.avatar ? (
+                  <img
+                    src={User.avatar}
+                    alt="Avatar"
+                    className="w-9 h-9 rounded-full shadow-sm"
+                  />
+                ) : (
+                  <div
+                    className="w-8 h-8 flex items-center justify-center rounded-full
+                bg-gradient-to-br from-fuchsia-500 via-purple-600 text-white font-semibold shadow-md"
+                  >
+                    {user.name?.[0]?.toUpperCase() || "U"}
+                  </div>
+                )}
+                <div
+                  className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400
+              rounded-full border-2 border-white animate-pulse"
+                />
+              </div>
+              <div className="text-left hidden md:block">
+                <p className="text-sm font-medium text-gray-800">{user.name}</p>
+                <p className="text-xs text-gray-500 font-normal">
+                  {user.email}
+                </p>
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${
+                  menuOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
           </div>
         </div>
       </div>
