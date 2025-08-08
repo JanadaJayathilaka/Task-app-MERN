@@ -39,9 +39,11 @@ const App = () => {
   };
 
   const ProtectedLayout = () => {
-    <Layout user={currentUser} onLogout={handleLogout}>
-      <Outlet />
-    </Layout>;
+    return (
+      <Layout user={currentUser} onLogout={handleLogout}>
+        <Outlet />
+      </Layout>
+    );
   };
   return (
     <Routes>
