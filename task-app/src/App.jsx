@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import NavBar from "./components/NavBar";
+import Login from "./components/Login";
 import { Outlet, Routes } from "react-router-dom";
 import { Layout, LogOut, Outdent } from "lucide-react";
 // These are used but not imported:
 import { useState } from "react";
 import { useNavigate, Route } from "react-router-dom";
+import SignUp from "./components/SignUp";
 const App = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(() => {
@@ -50,7 +51,23 @@ const App = () => {
       <Route
         path="/login"
         element={
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"></div>
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <Login
+              onSubmit={handleAuthSubmit}
+              onSwitchMode={() => navigate("/signup")}
+            />
+          </div>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <SignUp
+              onSubmit={handleAuthSubmit}
+              onSwitchMode={() => navigate("/login")}
+            />
+          </div>
         }
       />
       <Route path="/" element={<Layout />} />
