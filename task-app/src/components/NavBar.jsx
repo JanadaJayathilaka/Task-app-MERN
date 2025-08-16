@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown, LogOut, Settings, Zap } from "lucide-react";
 import { useRef, useState } from "react";
-const NavBar = () => {
+const NavBar = ({ user = {}, onLogout }) => {
   const navigate = useNavigate();
   const menuref = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -52,9 +52,9 @@ const NavBar = () => {
               duration-300 border-transparent hover:border-purple-200"
             >
               <div className="relative">
-                {User.avatar ? (
+                {user.avatar ? (
                   <img
-                    src={User.avatar}
+                    src={user.avatar}
                     alt="Avatar"
                     className="w-9 h-9 rounded-full shadow-sm"
                   />
