@@ -80,17 +80,6 @@ export const INPUTWRAPPER =
 export const BUTTON_CLASSES =
   "w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2";
 
-export const fields = [
-  { name: "email", type: "email", placeholder: "Email", icon: Mail },
-  {
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-    icon: Lock,
-    isPassword: true,
-  },
-];
-
 // PROFILE CSS
 export const INPUT_WRAPPER =
   "flex items-center border border-purple-100 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500 transition-all duration-200";
