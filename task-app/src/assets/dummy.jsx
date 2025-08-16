@@ -12,8 +12,12 @@ import {
   Award,
   Edit2,
   Trash2,
+  MoreVertical,
+  Clock,
+  Calendar,
 } from "lucide-react";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 // BACKEND TEST
 // DUMMY DATA
@@ -75,6 +79,17 @@ export const INPUTWRAPPER =
   "flex items-center border border-purple-100 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500 transition-all duration-200";
 export const BUTTON_CLASSES =
   "w-full bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white text-sm font-semibold py-2.5 rounded-lg hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2";
+
+export const fields = [
+  { name: "email", type: "email", placeholder: "Email", icon: Mail },
+  {
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    icon: Lock,
+    isPassword: true,
+  },
+];
 
 // PROFILE CSS
 export const INPUT_WRAPPER =
@@ -379,6 +394,6 @@ export const TI_CLASSES = {
 // APP.JSX
 const user = {
   avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(
-    data.name || "User"
+    "User"
   )}&background=random`,
 };

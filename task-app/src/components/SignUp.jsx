@@ -1,5 +1,6 @@
 import { User } from "lucide-react";
 import { useState } from "react";
+import React from "react";
 import {
   BUTTONCLASSES,
   FIELDS,
@@ -7,40 +8,41 @@ import {
   MESSAGE_ERROR,
   MESSAGE_SUCCESS,
 } from "../assets/dummy";
+import { UserPlus } from "lucide-react";
 import axios from "axios";
-const API_URL = "http://localhost:5173/";
+const API_URL = "http://localhost:3000/";
 const INITIAL_FORM = { name: "", email: "", password: "" };
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setMessage({ text: "", type: "" });
-
-  try {
-    const data = await axios.post(`${API_URL}/api/user/register`, formData);
-    console.log("signup successful", data);
-    setMessage({
-      text: "Registration successful! Please log in.",
-      type: "success",
-    });
-    setFormData(INITIAL_FORM);
-  } catch (error) {
-    console.error("signup failed", error);
-    setMessage({
-      text:
-        error.response?.data?.message ||
-        "Registration failed. Please try again.",
-      type: "error",
-    });
-  } finally {
-    setLoading(false);
-  }
-};
 
 const SignUp = ({ onSwitchMode }) => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ text: "", type: "" });
+
+    try {
+      const data = await axios.post(`${API_URL}api/user/register`, formData);
+      console.log("signup successful", data);
+      setMessage({
+        text: "Registration successful! Please log in.",
+        type: "success",
+      });
+      setFormData(INITIAL_FORM);
+    } catch (error) {
+      console.error("signup failed", error);
+      setMessage({
+        text:
+          error.response?.data?.message ||
+          "Registration failed. Please try again.",
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="max-w-md w-full bg-white shadow-lg border border-purple-100 rounded-xl p-8">
       <div className="mb-6 text-center">
@@ -62,7 +64,7 @@ const SignUp = ({ onSwitchMode }) => {
         </div>
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
-        {FIELDS.map(({ name, type, placeholder, icon: Icon }) => {
+        {FIELDS.map(({ name, type, placeholder, icon: Icon }) => (
           <div key={name} className={Inputwrapper}>
             <Icon className="text-purple-500 w-5 h-5 mr-2" />
             <input
@@ -75,8 +77,8 @@ const SignUp = ({ onSwitchMode }) => {
               className="w-full focus:outline-none text-sm text-gray-700"
               required
             />
-          </div>;
-        })}
+          </div>
+        ))}
 
         <button type="submit" className={BUTTONCLASSES} disabled={loading}>
           {loading ? (
