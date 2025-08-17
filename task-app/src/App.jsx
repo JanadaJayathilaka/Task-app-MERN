@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Login from "./components/Login";
-import { Outlet, Routes } from "react-router-dom";
+import { Navigate, Outlet, Routes } from "react-router-dom";
 import { LogOut, Outdent } from "lucide-react";
 import { useNavigate, Route } from "react-router-dom";
 import SignUp from "./components/SignUp";
 import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import PendingPage from "./pages/PendingPage";
+import CompletePage from "./pages/CompletePage";
+import Profile from "./components/Profile";
 const App = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(() => {
@@ -69,7 +73,29 @@ const App = () => {
           </div>
         }
       />
-      <Route path="/" element={<Layout />} />
+      <Route
+        element={
+          currentUser ? <ProtectedLayout /> : <Navigate to="/login" replace />
+        }
+      >
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/pending" element={<PendingPage />} />
+        <Route path="/complete" element={<CompletePage />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              user={currentUser}
+              setCurrentUser={setCurrentUser}
+              onLogout={handleLogout}
+            />
+          }
+        />
+      </Route>
+      <Route
+        path="/"
+        element={<Navigate to={currentUser ? "/" : "login"} replace />}
+      />
     </Routes>
   );
 };
