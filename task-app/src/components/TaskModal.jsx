@@ -7,15 +7,17 @@ import {
 import {
   AlignLeft,
   Calendar,
+  CheckCircle,
   Flag,
   PlusCircle,
   SaveIcon,
+  WholeWord,
   X,
 } from "lucide-react";
 
 const API_BASE = "http://localhost:3000/api/task";
 
-const TaskModal = (isOpen, onClose, taskToEdit, onSave, onLogout) => {
+const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
   const [taskData, setTaskData] = useState(DEFAULT_TASK);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -92,6 +94,9 @@ const TaskModal = (isOpen, onClose, taskToEdit, onSave, onLogout) => {
     },
     [taskData, today, getHeaders, onLogout, onSave, onClose]
   );
+
+  if (!isOpen) return null;
+
   return (
     <div className="fixed inset-0 backdrop:backdrop-blur-sm bg-black/20 z-50 flex items-center justify-center p-4">
       <div className="bg-white border border-purple-100 rounded-xl max-w-md w-full shadow-lg relative p-6 animate-fadeIn">
@@ -123,8 +128,8 @@ const TaskModal = (isOpen, onClose, taskToEdit, onSave, onLogout) => {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Task Title
+            <label className="flex gap-1 text-sm font-medium text-gray-700 mb-1">
+              <WholeWord className="w-4 h-4 text-purple-500" /> Task Title
             </label>
             <div
               className="flex items-center border-purple-100 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-purple-500 focus-within:border-purple-500
@@ -136,12 +141,12 @@ const TaskModal = (isOpen, onClose, taskToEdit, onSave, onLogout) => {
                 required
                 value={taskData.title}
                 onChange={handleChange}
-                className="w-full focus:outline-none text-sm"
+                className="w-full focus:outline-none text-sm "
                 placeholder="Enter task title"
               />
             </div>
             <div>
-              <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1">
+              <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-1 mt-1">
                 <AlignLeft className="w-4 h-4 text-purple-500" />
                 Description
               </label>
@@ -187,6 +192,50 @@ const TaskModal = (isOpen, onClose, taskToEdit, onSave, onLogout) => {
                 />
               </div>
             </div>
+            <div>
+              <label className="flex items-center gap-1 text-sm font-medium text-gray-700 mb-2">
+                <CheckCircle className="w-4 h-4 text-purple-500" /> Status
+              </label>
+              <div className="flex gap-2">
+                {[
+                  { val: "Yes", label: "Completed" },
+                  { val: "No", label: "In Progress" },
+                ].map(({ val, label }) => (
+                  <label key={val} className="flex items-center">
+                    <input
+                      type="radio"
+                      name="completed"
+                      value={val}
+                      checked={taskData.completed === val}
+                      onChange={handleChange}
+                      className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full mt-3 bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white
+            font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50
+            hover:shadow-md transition-all duration-200"
+            >
+              {loading ? (
+                "Saving..."
+              ) : taskData.id ? (
+                <>
+                  <Save className="w-4 h-4" />
+                  Update Task
+                </>
+              ) : (
+                <>
+                  <PlusCircle className="w-4 h-4" />
+                  Create Task
+                </>
+              )}
+            </button>
           </div>
         </form>
       </div>

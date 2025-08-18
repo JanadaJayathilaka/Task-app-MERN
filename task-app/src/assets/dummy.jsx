@@ -56,12 +56,12 @@ const backendDummy = [
 
 // assets/formConstants.js
 export const baseControlClasses =
-  "w-full px-4 py-2.5 border border-purple-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm";
+  "w-full mb-3 px-4 py-2.5 border border-purple-100 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm";
 
 export const priorityStyles = {
   Low: "bg-green-100 text-green-700 border-green-200",
   Medium: "bg-purple-100 text-purple-700 border-purple-200",
-  High: "bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200",
+  High: "bg-red-200 text-fuchsia-700 border-fuchsia-200",
 };
 
 // data/defaultTask.js
