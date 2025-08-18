@@ -4,7 +4,6 @@ import { BACK_BUTTON, SECTION_WRAPPER } from "../assets/dummy.jsx";
 import { ChevronLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:3000";
 const Profile = ({ setCurrentUser, onLogout }) => {
   const [profile, setProfile] = useState({ name: "", email: "" });
   const [passwords, setPasswords] = useState({

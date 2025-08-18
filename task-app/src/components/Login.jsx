@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Eye, EyeOff, Lock, LogIn, Mail } from "lucide-react";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const INITIAL_FORM = { email: "", password: "" };
 
 const Login = ({ onSubmit, onSwitchMode }) => {
@@ -30,8 +31,6 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     },
   ];
   const navigate = useNavigate();
-  const url = "http://localhost:3000/";
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
@@ -39,7 +38,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     if (token) {
       (async () => {
         try {
-          const { data } = await axios.get(`${url}api/user/me`, {
+          const { data } = await axios.get(`${API_BASE_URL}/api/user/me`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (data.success) {
@@ -63,7 +62,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     }
     setLoading(true);
     try {
-      const { data } = await axios.post(`${url}api/user/login`, formData);
+      const { data } = await axios.post(`${API_BASE_URL}/api/user/login`, formData);
       if (!data.token) throw new Error(data.message || "Login failed");
 
       localStorage.setItem("token", data.token);

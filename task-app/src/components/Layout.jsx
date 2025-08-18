@@ -10,6 +10,8 @@ const Layout = ({ onLogout, user }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
   const fetchTasks = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -18,7 +20,7 @@ const Layout = ({ onLogout, user }) => {
       if (!token) {
         throw new Error("No auth token found");
       }
-      const { data } = await axios.get("http://localhost:3000/api/task/gp", {
+      const { data } = await axios.get(`${API_BASE_URL}/api/task/gp`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
