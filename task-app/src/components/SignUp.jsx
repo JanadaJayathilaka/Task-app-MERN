@@ -10,7 +10,7 @@ import {
 } from "../assets/dummy";
 import { UserPlus } from "lucide-react";
 import axios from "axios";
-const API_URL = "http://localhost:3000/";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const INITIAL_FORM = { name: "", email: "", password: "" };
 
 const SignUp = ({ onSwitchMode }) => {
@@ -24,7 +24,7 @@ const SignUp = ({ onSwitchMode }) => {
     setMessage({ text: "", type: "" });
 
     try {
-      const data = await axios.post(`${API_URL}api/user/register`, formData);
+      const data = await axios.post(`${API_BASE_URL}/api/user/register`, formData);
       console.log("signup successful", data);
       setMessage({
         text: "Registration successful! Please log in.",
