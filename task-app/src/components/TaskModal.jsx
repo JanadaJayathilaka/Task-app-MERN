@@ -182,6 +182,8 @@ const TaskModal = (isOpen, onClose, taskToEdit, onSave, onLogout) => {
                   required
                   min={today}
                   value={taskData.dueDate}
+                  onChange={handleChange}
+                  className={baseControlClasses}
                 />
               </div>
             </div>
