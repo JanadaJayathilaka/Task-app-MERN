@@ -22,6 +22,8 @@ import {
 import { CalendarIcon, Filter, HomeIcon, Plus } from "lucide-react";
 import { useOutletContext } from "react-router-dom";
 import TaskItem from "../components/TaskItem.jsx";
+import axios from "axios";
+import TaskModal from "../components/TaskModal.jsx";
 
 const API_BASE = "http://localhost:3000/api/task";
 const Dashboard = () => {
@@ -44,11 +46,9 @@ const Dashboard = () => {
         (t) =>
           t.completed === true ||
           t.completed === 1 ||
-          (
-            typeof t.completed === "string" &&
-            t.completed.toLowerCase() === "yes"
-          ).length
-      ),
+          (typeof t.completed === "string" &&
+            t.completed.toLowerCase() === "yes")
+      ).length,
     }),
     [tasks]
   );
@@ -79,7 +79,17 @@ const Dashboard = () => {
   );
 
   //saving tasks
-  const handleTaskSave = useCallback(async);
+  const handleTaskSave = useCallback(async (taskData) => {
+    try {
+      if (taskData.id)
+        await axios.put(`${API_BASE}/${taskData.id}/gp`, taskData);
+      refreshTasks();
+      setShowModal(false);
+      setSelectedTask(null);
+    } catch (error) {
+      console.error("Error saving tasks: ", error);
+    }
+  });
   return (
     <div className={WRAPPER}>
       {/* Header */}
@@ -205,7 +215,25 @@ const Dashboard = () => {
             ))
           )}
         </div>
+        {/* add Task desktop */}
+        <div
+          className="hidden md:flex items-center justify-center p-4 border-2 border-dashed border-purple-200
+        rounded-xl hover:border-purple-400 bg-purple-50/50 cursor-pointor transition-colors"
+        >
+          <Plus className="w-5 h-5 text-purple-500 mr-2" />
+          <span className="text-gray-600 font-medium">Add New Task</span>
+        </div>
       </div>
+      {/* modal */}
+      <TaskModal
+        isOpen={showModal || !!selectedTask}
+        onClose={() => {
+          setShowModal(false);
+          setSelectedTask(null);
+        }}
+        taskToEdit={selectedTask}
+        onSave={handleTaskSave}
+      />
     </div>
   );
 };
