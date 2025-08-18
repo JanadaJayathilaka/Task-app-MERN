@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   ADD_BUTTON,
   EMPTY_STATE,
@@ -21,6 +21,7 @@ import {
 } from "../assets/dummy.jsx";
 import { CalendarIcon, Filter, HomeIcon, Plus } from "lucide-react";
 import { useOutletContext } from "react-router-dom";
+import TaskItem from "../components/TaskItem.jsx";
 
 const API_BASE = "http://localhost:3000/api/task";
 const Dashboard = () => {
@@ -78,6 +79,7 @@ const Dashboard = () => {
   );
 
   //saving tasks
+  const handleTaskSave = useCallback(async);
   return (
     <div className={WRAPPER}>
       {/* Header */}
@@ -168,28 +170,40 @@ const Dashboard = () => {
         </div>
         {/* TASK list */}
         <div className="space-y-4">
-          {filterTasks.length === 0?(
+          {filterTasks.length === 0 ? (
             <div className={EMPTY_STATE.wrapper}>
               <div className={EMPTY_STATE.iconWrapper}>
-                <CalendarIcon className="w-8 h-8 text-purple-500"/>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                  No Tasks Found
-                </h3>
-                <p className="text-sm text-gray-500 mb-4">{filter==="all" ?
-              "Create your first task to get started" : "No tasks match this filter"  
-              }</p>
-              <button onClick={()=> setShowModal(true)} className={EMPTY_STATE.btn}>
+                <CalendarIcon className="w-8 h-8 text-purple-500" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                No Tasks Found
+              </h3>
+              <p className="text-sm text-gray-500 mb-4">
+                {filter === "all"
+                  ? "Create your first task to get started"
+                  : "No tasks match this filter"}
+              </p>
+              <button
+                onClick={() => setShowModal(true)}
+                className={EMPTY_STATE.btn}
+              >
                 Add New Task
               </button>
-              </div>
             </div>
-          ):
-          (
-            filterTasks.map(task => (
-              <TaskItem key={task._id || task.id}
+          ) : (
+            filterTasks.map((task) => (
+              <TaskItem
+                key={task._id || task.id}
+                task={task}
+                onRefresh={refreshTasks}
+                showCompleteCheckbox
+                onEdit={() => {
+                  setSelectedTask(task);
+                  setShowModal(true);
+                }}
+              />
             ))
-          )
-          }
+          )}
         </div>
       </div>
     </div>
