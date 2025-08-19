@@ -4,7 +4,7 @@ import {
   getPriorityColor,
   MENU_OPTIONS,
   TI_CLASSES,
-} from "../assets/dummy";
+} from "../assets/dummy.jsx";
 import { Calendar, CheckCircle2, Clock, MoreVertical } from "lucide-react";
 import axios from "axios";
 import { isToday, format } from "date-fns";
