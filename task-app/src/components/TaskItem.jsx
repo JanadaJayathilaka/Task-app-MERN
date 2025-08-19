@@ -82,6 +82,28 @@ const TaskItem = ({
       if (err.response?.status === 401) onLogout?.();
     }
   };
+
+  const handleSave = async (updatedTask) => {
+    try {
+      const payload = (({
+        title,
+        description,
+        priority,
+        dueDate,
+        completed,
+      }) => ({ title, description, priority, dueDate, completed }))(
+        updatedTask
+      );
+      await axios.put(`${API_BASE}/${task._id}/gp`, payload, {
+        headers: getAuthHeaders(),
+      });
+      setShowEditModal(false);
+      onRefresh?.();
+    } catch (err) {
+      if (err.response?.status === 401) onLogout?.();
+    }
+  };
+
   const progress = subtasks.length
     ? (subtasks.filter((st) => st.completed).length / subtasks.length) * 100
     : 0;
