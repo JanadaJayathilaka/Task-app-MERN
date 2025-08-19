@@ -1,9 +1,8 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Navbar from "./NavBar";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
-import { useCallback, useMemo } from "react";
 import { TrendingUp, Zap, Circle, Clock } from "lucide-react";
 const Layout = ({ onLogout, user }) => {
   const [tasks, setTasks] = useState([]);
@@ -70,7 +69,7 @@ const Layout = ({ onLogout, user }) => {
 
   //creating statistic card
   const StatCard = ({ title, value, icon }) => (
-    <div className="p-2 sm:p-3 rounded-xl bg-white shadomw-sm border border-purple-100 hover:shadow-md transition-all duration-300 hover:border-purple-100 group">
+    <div className="p-2 sm:p-3 rounded-xl bg-white shadow-sm border border-purple-100 hover:shadow-md transition-all duration-300 hover:border-purple-100 group">
       <div className="flex items-center gap-2">
         <div className="p-1.5 rounded-lg bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 group-hover:from-fuchsia-500/20 group-hover:to-purple-500/20">
           {icon}
@@ -112,7 +111,7 @@ const Layout = ({ onLogout, user }) => {
   return (
     <div className="min-h-screen bg-gray-50 ">
       <Navbar user={user} onLogout={onLogout} />
-      <Sidebar user={user} task={tasks} />
+      <Sidebar user={user} tasks={tasks} />
 
       <div className="ml-0 xl:ml-64 lg:ml-64 md:ml-16 pt-16 p-3 sm:p-4 md:p-4 transition-all duration-300">
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6">
@@ -148,7 +147,7 @@ const Layout = ({ onLogout, user }) => {
                   }
                 />
                 <StatCard
-                  title="Completeion Rate"
+                  title="Completion Rate"
                   value={stats.completionPercentage + "%"}
                   icon={
                     <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-500" />

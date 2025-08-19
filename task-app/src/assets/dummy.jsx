@@ -143,7 +143,7 @@ export const PRODUCTIVITY_CARD = {
   label: "text-xs font-semibold text-purple-700",
   badge: "text-xs bg-purple-200 text-purple-700 px-2 py-0.5 rounded-full",
   barBg: "w-full h-2 bg-purple-200 rounded-full overflow-hidden",
-  barFg: "h-full bg-gradient-to-r from-fuchsia-500 to-purple-600 animate-pulse",
+  barFg: "h-2 bg-gradient-to-r from-fuchsia-500 to-purple-600 animate-pulse",
 };
 
 export const TIP_CARD = {
