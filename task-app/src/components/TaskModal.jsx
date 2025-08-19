@@ -16,7 +16,7 @@ import {
   X,
 } from "lucide-react";
 
-const API_BASE = "http://localhost:3000/api/task";
+const API_BASE = "https://task-app-mern-1y4j.onrender.com";
 
 const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
   const [taskData, setTaskData] = useState(DEFAULT_TASK);

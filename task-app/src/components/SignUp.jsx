@@ -10,7 +10,7 @@ import {
 } from "../assets/dummy";
 import { UserPlus } from "lucide-react";
 import axios from "axios";
-const API_URL = "http://localhost:3000/";
+const API_URL = "https://task-app-mern-1y4j.onrender.com/";
 const INITIAL_FORM = { name: "", email: "", password: "" };
 
 const SignUp = ({ onSwitchMode }) => {

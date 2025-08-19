@@ -17,7 +17,7 @@ const Layout = ({ onLogout, user }) => {
       if (!token) {
         throw new Error("No auth token found");
       }
-      const { data } = await axios.get("http://localhost:3000/api/task/gp", {
+      const { data } = await axios.get("https://task-app-mern-1y4j.onrender.com/api/task/gp", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

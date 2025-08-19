@@ -30,7 +30,7 @@ const Login = ({ onSubmit, onSwitchMode }) => {
     },
   ];
   const navigate = useNavigate();
-  const url = "http://localhost:3000/";
+  const url = "https://task-app-mern-1y4j.onrender.com/";
 
   useEffect(() => {
     const token = localStorage.getItem("token");
