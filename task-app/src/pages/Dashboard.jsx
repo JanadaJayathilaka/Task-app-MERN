@@ -121,7 +121,7 @@ const Dashboard = () => {
             textColor,
             gradient,
           }) => (
-            <div key={key} className={`${STAT_CARD} ${borderColor}`}>
+            <div key={key} className={`${STAT_CARD} ${borderColor} `}>
               <div className="flex items-center gap-2 md:gap-3">
                 <div className={`${ICON_WRAPPER} ${iconColor}`}>
                   <Icon className="w-4 h-4 md:w-5 md:h-5" />
@@ -144,7 +144,7 @@ const Dashboard = () => {
         )}
       </div>
       {/* contents */}
-      <div className="space-y-6">
+      <div className="space-y-6 ">
         {/* filter */}
         <div className={FILTER_WRAPPER}>
           <div className="flex items-center gap-2 min-w-0">
@@ -179,7 +179,7 @@ const Dashboard = () => {
           </div>
         </div>
         {/* TASK list */}
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {filterTasks.length === 0 ? (
             <div className={EMPTY_STATE.wrapper}>
               <div className={EMPTY_STATE.iconWrapper}>
