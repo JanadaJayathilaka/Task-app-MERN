@@ -17,14 +17,11 @@ const Layout = ({ onLogout, user }) => {
       if (!token) {
         throw new Error("No auth token found");
       }
-      const { data } = await axios.get(
-        "https://task-app-mern-backend.onrender.com/api/task/gp",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const { data } = await axios.get("http://localhost:3000/api/task/gp", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const arr = Array.isArray(data)
         ? data
         : Array.isArray(data?.tasks)
