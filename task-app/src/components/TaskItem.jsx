@@ -9,7 +9,7 @@ import { Calendar, CheckCircle2, Clock, MoreVertical } from "lucide-react";
 import axios from "axios";
 import { isToday, format } from "date-fns";
 import TaskModal from "./TaskModal";
-const API_BASE = "http://localhost:3000/api/task";
+const API_BASE = "https://task-app-mern-backend.onrender.com/api/task";
 
 const TaskItem = ({
   task,

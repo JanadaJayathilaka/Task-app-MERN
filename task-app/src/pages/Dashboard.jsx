@@ -25,7 +25,7 @@ import TaskItem from "../components/TaskItem.jsx";
 import axios from "axios";
 import TaskModal from "../components/TaskModal.jsx";
 
-const API_BASE = "http://localhost:3000/api/task";
+const API_BASE = "https://task-app-mern-backend.onrender.com/api/task";
 const Dashboard = () => {
   const { tasks, refreshTasks } = useOutletContext();
   const [showModal, setShowModal] = useState(false);
