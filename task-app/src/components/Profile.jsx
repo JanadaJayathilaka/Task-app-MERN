@@ -21,7 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "https://task-app-mern-backend.onrender.com";
+const API_URL = "http://localhost:3000";
 const Profile = ({ setCurrentUser, onLogout }) => {
   const [profile, setProfile] = useState({ name: "", email: "" });
   const [passwords, setPasswords] = useState({
