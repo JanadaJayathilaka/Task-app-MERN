@@ -1,0 +1,14 @@
+FROM node:20-alphine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install    
+# can use ci(clean install also) for the exact versions of dependencies
+
+RUN npm install -g nodemon
+
+COPY . ./
+
+CMD ["npm", "start"]
