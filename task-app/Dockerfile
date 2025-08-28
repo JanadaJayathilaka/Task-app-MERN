@@ -7,8 +7,7 @@ COPY package*.json ./
 RUN npm install    
 # can use ci(clean install) for the exact versions of dependencies
 
-RUN npm install -g nodemon
 
 COPY . ./
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]

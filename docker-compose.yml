@@ -1,0 +1,29 @@
+name: mern-task-app
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped #unless manually restart
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - 5000:5000
+
+  frontend:
+    build:
+      context: ./task-app
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./task-app:/app
+      - /app/node_modules
+    ports:
+      - 5173:5173
+    depends_on:
+      - backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true

@@ -20,7 +20,7 @@ app.use("/api/user", userRouter);
 app.use("/api/task", taskRouter);
 
 app.get("/", (req, res) => {
-  res.send("Api working");
+  res.send("Api wworking");
 });
 
 app.listen(port, () => {

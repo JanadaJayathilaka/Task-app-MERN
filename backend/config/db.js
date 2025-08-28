@@ -7,9 +7,9 @@ export const connectDB = async () => {
       useUnifiedTopology: true,
       ssl: true, // ensure TLS is used
     });
-    console.log("✅ MongoDB connected successfully");
+    console.log("MongoDB connected successfully");
   } catch (err) {
-    console.error("❌ MongoDB connection error:", err.message);
+    console.error("MongoDB connection error:", err.message);
     process.exit(1); // stop the app if DB fails
   }
 };
